@@ -2,7 +2,12 @@
 Snake game created using P5JS
 
 
-To run 
+Install dependencies:
+```shell
+  npm install
+```
+
+Run the code:
 ```shell
   npm start
 ```
