@@ -4,8 +4,8 @@
 const WIDTH = 400;
 const HEIGHT = 400;
 const SCALE = 10;
-
-
+let scoreDisplay;
+let blipSound, dieSound;
 class Food{
   static findLoc(){
     let rows = floor(width / SCALE);
@@ -91,12 +91,13 @@ class Snake{
     this.x = 0;
     this.y = 0;
     this.count = 1;
+    scoreDisplay.innerHTML = this.count - 1;
     this.tail = [createVector(this.x, this.y)];
   }
 
   show(){
     fill(255);
-    for(let i = 0; i < this.tail.length ; i++){
+    for(let i = this.tail.length - 1; i >= 0 ; i--){
       rect(this.tail[i].x, this.tail[i].y, SCALE, SCALE);
     }
   }
@@ -105,6 +106,7 @@ class Snake{
     let d = dist(this.x, this.y, food.x, food.y);
     if (d < 1){
       this.count += 1;
+      scoreDisplay.innerHTML = this.count - 1;
       return true;
     }
     return false;
@@ -137,16 +139,22 @@ function setup(){
   frameRate(8);
   snake = new Snake();
   food = new Food();
+  scoreDisplay = document.getElementById('score');
+  blipSound = loadSound('Blip.wav');
+  dieSound = loadSound('die.wav');
 }
 
 function draw(){
+  
   background(0);
   snake.update();
   if(snake.checkDeath()){
     snake.die();
+    dieSound.play();
   }
   snake.show();
   if(snake.eat(food)){
+    blipSound.play();
     food.generateNew();
   }
   food.show();
