@@ -11,3 +11,12 @@ Run the code:
 ```shell
   npm start
 ```
+
+
+or 
+
+
+Play here
+
+[Game](https://ashok1994.github.io/p5snake/)
+
